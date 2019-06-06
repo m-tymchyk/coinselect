@@ -1,52 +1,59 @@
+type ScriptType
+    = 'LEGACY'
+    | 'P2SH'
+    | 'BECH32';
+
+
 type BaseUtxo = {
     txId: string;
     vout: number;
     value: number;
-    script?: string;
-
-    [key: string]: any;
+    type?: ScriptType;
+    script?: string | { length: number; };
 };
+
 
 type BaseTarget = {
     address: string;
     value?: number;
-    script?: string;
-
-    [key: string]: any;
+    type?: ScriptType;
+    script?: string | { length: number; };
 };
 
-type CoinSelectResult = {
-    inputs?: BaseUtxo[];
-    outputs?: BaseTarget[];
+
+type CoinSelectResult<I extends BaseUtxo, O extends BaseTarget> = {
+    inputs?: I[];
+    outputs?: O[];
     fee: number;
 };
 
-declare module 'coinselect' {
-    function coinSelect(utxos: BaseUtxo[], targets: BaseTarget[], feeRate: number): CoinSelectResult;
 
+declare function coinSelect<
+    I extends BaseUtxo = BaseUtxo,
+    O extends BaseTarget = BaseTarget
+>(
+    utxos: I[],
+    targets: O[],
+    feeRate: number
+): CoinSelectResult<I, O>;
+
+
+declare module 'coinselect' {
     export = coinSelect;
 }
 
 declare module 'coinselect/accumulative' {
-    function coinSelect(utxos: BaseUtxo[], targets: BaseTarget[], feeRate: number): CoinSelectResult;
-
     export = coinSelect;
 }
 
 declare module 'coinselect/blackjack' {
-    function coinSelect(utxos: BaseUtxo[], targets: BaseTarget[], feeRate: number): CoinSelectResult;
-
     export = coinSelect;
 }
 
 declare module 'coinselect/break' {
-    function coinSelect(utxos: BaseUtxo[], targets: BaseTarget[], feeRate: number): CoinSelectResult;
-
     export = coinSelect;
 }
 
 declare module 'coinselect/split' {
-    function coinSelect(utxos: BaseUtxo[], targets: BaseTarget[], feeRate: number): CoinSelectResult;
-
     export = coinSelect;
 }
