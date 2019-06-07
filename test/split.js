@@ -1,4 +1,4 @@
-var coinSplit = require('../split')
+var coinSplit = require('../').coinSplit
 var fixtures = require('./fixtures/split')
 var tape = require('tape')
 var utils = require('./_utils')

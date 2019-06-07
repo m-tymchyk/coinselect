@@ -3,7 +3,7 @@ export type ScriptType
     | 'P2SH'
     | 'BECH32';
 
-export type BaseUtxo = {
+export type CoinUtxo = {
     txId: string;
     vout: number;
     value: number;
@@ -11,44 +11,30 @@ export type BaseUtxo = {
     script?: string | { length: number; };
 };
 
-export type BaseTarget = {
+export type CoinTarget = {
     address: string;
     value?: number;
     type?: ScriptType;
     script?: string | { length: number; };
 };
 
-export type CoinSelectResult<I extends BaseUtxo, O extends BaseTarget> = {
+export type CoinSelectResult<I extends CoinUtxo, O extends CoinTarget> = {
     inputs?: I[];
     outputs?: O[];
     fee: number;
 };
 
-declare function coinSelect<
-    I extends BaseUtxo = BaseUtxo,
-    O extends BaseTarget = BaseTarget
->(
-    utxos: I[],
-    targets: O[],
-    feeRate: number
-): CoinSelectResult<I, O>;
+declare type CoinSelect<I extends CoinUtxo = CoinUtxo, O extends CoinTarget = CoinTarget>
+    = (utxos: I[], targets: O[], feeRate: number) => CoinSelectResult<I, O>;
 
-declare module 'coinselect' {
-    export = coinSelect;
-}
 
-declare module 'coinselect/accumulative' {
-    export = coinSelect;
-}
+export {
+    CoinSelect as coinAccumulative,
+    CoinSelect as coinBlackjack,
+    CoinSelect as coinSplit,
+    CoinSelect as coinBreak,
+};
 
-declare module 'coinselect/blackjack' {
-    export = coinSelect;
-}
+declare var coinSelect: CoinSelect;
+export default coinSelect;
 
-declare module 'coinselect/break' {
-    export = coinSelect;
-}
-
-declare module 'coinselect/split' {
-    export = coinSelect;
-}
