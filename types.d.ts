@@ -18,7 +18,7 @@ export type CoinTarget = {
     script?: string | { length: number; };
 };
 
-export type CoinSelectResult<I extends CoinUtxo, O extends CoinTarget> = {
+export type CoinSelectResult<I extends CoinUtxo = CoinUtxo, O extends CoinTarget = CoinTarget> = {
     inputs?: I[];
     outputs?: O[];
     fee: number;
