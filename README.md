@@ -33,7 +33,7 @@ let feeRate = 55 // satoshis per byte
 let utxos = [
   ...,
   {
-    txId: '...',
+    txid: '...',
     vout: 0,
     ...,
     value: 10000
@@ -58,7 +58,7 @@ if (!inputs || !outputs) return
 
 let txb = new bitcoin.TransactionBuilder()
 
-inputs.forEach(input => txb.addInput(input.txId, input.vout))
+inputs.forEach(input => txb.addInput(input.txid, input.vout))
 outputs.forEach(output => {
   // watch out, outputs may have been added that you need to provide
   // an output address/script for

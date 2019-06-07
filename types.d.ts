@@ -4,7 +4,7 @@ export type ScriptType
     | 'BECH32';
 
 export type CoinUtxo = {
-    txId: string;
+    txid: string;
     vout: number;
     value: number;
     type?: ScriptType;
