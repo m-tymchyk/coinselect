@@ -28,13 +28,12 @@ declare type CoinSelect<I extends CoinUtxo = CoinUtxo, O extends CoinTarget = Co
     = (utxos: I[], targets: O[], feeRate: number) => CoinSelectResult<I, O>;
 
 
-export {
-    CoinSelect as coinAccumulative,
-    CoinSelect as coinBlackjack,
-    CoinSelect as coinSplit,
-    CoinSelect as coinBreak,
-};
-
 declare var coinSelect: CoinSelect;
+declare var coinAccumulative: CoinSelect;
+declare var coinBlackjack: CoinSelect;
+declare var coinSplit: CoinSelect;
+declare var coinBreak: CoinSelect;
+
+export { coinAccumulative, coinBlackjack, coinSplit, coinBreak, };
 export default coinSelect;
 
